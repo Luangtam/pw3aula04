@@ -13,7 +13,7 @@ function Usuario() {
   const [dadosUsuario,setDadosUsuario] = React.useState({
     name:"",
     email:"",
-    senha:"",
+    password:"",
     id:""
   });
 
@@ -34,7 +34,7 @@ function Usuario() {
 
     if (dadosUsuario.id =="") {
 
-    const resposta = await api.post('/usuarios',
+    const resposta = await api.post('/users',
       dadosUsuario).then((res)=>{
         console.log(res);
         if (res.status == 201){
@@ -59,14 +59,14 @@ function Usuario() {
     } else{
 
 
-       const resposta = await api.put('/usuario/'+dadosUsuario.id,
+       const resposta = await api.put('/users/'+dadosUsuario.id,
       dadosUsuario).then((res)=>{
         console.log(res);
         if (res.status == 200){
           setDadosUsuario({
               name:"",
               email:"",
-              senha:"",
+              password:"",
               id:""
           });
           alert("Salvo com sucesso");
@@ -91,18 +91,18 @@ function Usuario() {
 
   // chamando backand para trazer todos os usuários
   const getAllUsuario = async (e)=>{
-    const consulta = await api.get("/usuario");
-    setResultado(consulta.data.usuario);
+    const consulta = await api.get("/users");
+    setResultado(consulta.data.users);
   }
 
   const functionEdit = async (e)=>{
-     const getUsuario = await api.get("/usuario/"+e).then((res)=>{
-      //console.log(res.data.usuario);
+     const getUsuario = await api.get("/users/"+e).then((res)=>{
+      console.log(res.data.user);
       setDadosUsuario({
-        name:res.data.usuario.name,
-        email:res.data.usuario.email,
-        senha:res.data.usuario.senha,
-        id: res.data.usuario.id
+        name:res.data.user.name,
+        email:res.data.user.email,
+        password:res.data.user.password,
+        id: res.data.user.id
       });
 
      }).catch((res)=>{
@@ -143,15 +143,15 @@ function Usuario() {
       <form onSubmit={saveData}>
         Nome:
         <br></br>
-        <input type="text" name="name" required placeholder="Nome" value={dadosusuario.name} onChange={inputData}></input>
+        <input type="text" name="name" required placeholder="Nome" value={dadosUsuario.name} onChange={inputData}></input>
         <br></br>
         Email:
         <br></br>
-        <input type="text" name="email" required placeholder="email" value={dadosusuario.email} onChange={inputData}></input>
+        <input type="text" name="email" required placeholder="email" value={dadosUsuario.email} onChange={inputData}></input>
         <br></br>
         Senha:
         <br></br>
-        <input type="text" name="senha" required placeholder="senha" value={dadosusuario.senha} onChange={inputData}></input>
+        <input type="text" name="password" required placeholder="senha" value={dadosUsuario.password} onChange={inputData}></input>
         <br></br>
         <button type="submit">Enviar</button>
         <button type="button" onClick={getAllUsuario}>Listar</button>
@@ -172,7 +172,7 @@ function Usuario() {
                     <tr key={index}>
                         <td>{usuario.name}</td>
                         <td>{usuario.email}</td>
-                        <td>{usuario.senha}</td>
+                        <td>{usuario.password}</td>
                        
                         <td><button type="button"  onClick={(e)=>{
                           functionEdit(usuario.id)

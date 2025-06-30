@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar'
 import Clientes from './pages/Clientes'
 import Produtos from './pages/Produtos'
 import Login from './components/Login'
-
+import Usuario from './pages/Usuario'
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
   const [userLogged, setUserLogged] = useState(false)
@@ -16,6 +16,9 @@ function App() {
     }
     if (currentPage=="produtos"){
       return <Produtos/>
+    }
+    if (currentPage=="usuarios"){
+      return <Usuario/>
     }
   }
 
